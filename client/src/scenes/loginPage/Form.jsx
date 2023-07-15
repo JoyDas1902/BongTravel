@@ -138,7 +138,7 @@ const Form = () => {
                     Boolean(touched.firstName) && Boolean(errors.firstName)
                   }
                   helperText={touched.firstName && errors.firstName}
-                  sx={{ gridColumn: 'span 2' }}
+                  sx={{ gridColumn: 'span 4' }}
                 />
                 <TextField
                   label='Last Name'
@@ -148,7 +148,7 @@ const Form = () => {
                   name='lastName'
                   error={Boolean(touched.lastName) && Boolean(errors.lastName)}
                   helperText={touched.lastName && errors.lastName}
-                  sx={{ gridColumn: 'span 2' }}
+                  sx={{ gridColumn: 'span 4' }}
                 />
                 <TextField
                   label='Occupation'
