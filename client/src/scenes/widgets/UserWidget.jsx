@@ -1,5 +1,4 @@
 import {
-  EditOutlined,
   LocationOnOutlined,
   WorkOutlineOutlined,
   GroupOutlined,

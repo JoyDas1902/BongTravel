@@ -16,6 +16,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
+    data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     dispatch(setPosts({ posts: data }));
   };
 
@@ -28,6 +29,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       }
     );
     const data = await response.json();
+    data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     dispatch(setPosts({ posts: data }));
   };
 
@@ -73,6 +75,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
                 userPicturePath,
                 likes,
                 comments,
+                createdAt,
               }) => (
                 <PostWidget
                   key={_id}
@@ -85,6 +88,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
                   userPicturePath={userPicturePath}
                   likes={likes}
                   comments={comments}
+                  createdAt={createdAt}
                 />
               )
             )}
@@ -104,6 +108,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
                 userPicturePath,
                 likes,
                 comments,
+                createdAt,
               }) => (
                 <PostWidget
                   key={_id}
@@ -116,6 +121,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
                   userPicturePath={userPicturePath}
                   likes={likes}
                   comments={comments}
+                  createdAt={createdAt}
                 />
               )
             )}
