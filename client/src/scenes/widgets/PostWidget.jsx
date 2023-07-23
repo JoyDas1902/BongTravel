@@ -112,7 +112,6 @@ const PostWidget = ({
 
   const postDate = new Date(createdAt);
   const timeAgo = getTimeAgoFromDate(postDate);
-  console.log(timeAgo);
 
   let isVideo = false;
   let isAudio = false;

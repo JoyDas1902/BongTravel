@@ -18,7 +18,7 @@ import FlexBetween from 'components/FlexBetween';
 import Dropzone from 'react-dropzone';
 import UserImage from 'components/UserImage';
 import WidgetWrapper from 'components/WidgetWrapper';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPosts } from 'state';
 
@@ -27,12 +27,29 @@ const MyPostWidget = ({ picturePath }) => {
   const [isFile, setIsFile] = useState(false);
   const [file, setFile] = useState(null);
   const [post, setPost] = useState('');
-  const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
+  const [isDrafted, setIsDrafted] = useState(false);
+  const draftPostKey = `userId_${_id}`;
 
+  const { palette } = useTheme();
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
+
+  useEffect(() => {
+    const draftPostData = localStorage.getItem(draftPostKey);
+    if (draftPostData) {
+      setPost(JSON.parse(draftPostData).post);
+    }
+    setIsDrafted(true);
+  }, [draftPostKey]);
+
+  useEffect(() => {
+    if (isDrafted) {
+      const draftData = { post };
+      localStorage.setItem(draftPostKey, JSON.stringify(draftData));
+    }
+  }, [isDrafted, post, draftPostKey]);
 
   const handlePost = async () => {
     const formData = new FormData();
@@ -49,6 +66,7 @@ const MyPostWidget = ({ picturePath }) => {
     });
     const posts = await response.json();
     dispatch(setPosts({ posts }));
+    localStorage.removeItem(draftPostKey);
     setIsFile(null);
     setFile(null);
     setPost('');
@@ -105,7 +123,7 @@ const MyPostWidget = ({ picturePath }) => {
                 {file && (
                   <IconButton
                     onClick={() => setFile(null)}
-                    sx={{ width: '15%' }}
+                    sx={{ marginInline: '0.5rem' }}
                   >
                     <DeleteOutlined />
                   </IconButton>
