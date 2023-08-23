@@ -36,6 +36,8 @@ const MyPostWidget = ({ picturePath }) => {
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
+  const SERVER_URL = process.env.SERVER_URL;
+
   useEffect(() => {
     const draftPostData = localStorage.getItem(draftPostKey);
     if (draftPostData) {
@@ -59,7 +61,7 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append('picture', file);
       formData.append('picturePath', file.name);
     }
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`${SERVER_URL}/posts`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
