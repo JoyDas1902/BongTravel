@@ -17,8 +17,6 @@ User Profiles: Each user has a dedicated profile page displaying their informati
 
 Like, Comment and Share: Users can interact with posts by liking, commenting and sharing on them.
 
-Bengali Language Support: The app supports posting in the Bengali language, and all buttons and call-to-action elements are also in Bengali.
-
 ## Installation
 To run the Bong Travel app locally, follow these steps:
 
