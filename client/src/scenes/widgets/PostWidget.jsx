@@ -50,13 +50,14 @@ const PostWidget = ({
   const [isComments, setIsComments] = useState(false);
   const [comment, setComment] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
+  const SERVER_URL = process.env.SERVER_URL;
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+    const response = await fetch(`${SERVER_URL}/posts/${postId}/like`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -69,21 +70,18 @@ const PostWidget = ({
   };
 
   const postComment = async () => {
-    const response = await fetch(
-      `http://localhost:3001/posts/${postId}/comment`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userPicture,
-          name: `${firstName} ${lastName}`,
-          comment,
-        }),
-      }
-    );
+    const response = await fetch(`${SERVER_URL}/posts/${postId}/comment`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userPicture,
+        name: `${firstName} ${lastName}`,
+        comment,
+      }),
+    });
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
     setComment('');
@@ -205,7 +203,7 @@ const PostWidget = ({
             height='auto'
             alt=''
             style={{ borderRadius: '0.25rem', marginTop: '0.5rem' }}
-            src={`http://localhost:3001/assets/${picturePath}`}
+            src={`${SERVER_URL}/assets/${picturePath}`}
           />
           {isVideo && (
             <video
@@ -215,14 +213,14 @@ const PostWidget = ({
               muted
               controls
               style={{ borderRadius: '0.25rem', marginTop: '0.5rem' }}
-              src={`http://localhost:3001/assets/${picturePath}`}
+              src={`${SERVER_URL}/assets/${picturePath}`}
             />
           )}
           {isAudio && (
             <audio
               controls
               style={{ borderRadius: '0.25rem', marginTop: '0.5rem' }}
-              src={`http://localhost:3001/assets/${picturePath}`}
+              src={`${SERVER_URL}/assets/${picturePath}`}
             />
           )}
         </>
