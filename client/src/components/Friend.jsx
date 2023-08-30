@@ -22,16 +22,17 @@ const Friend = ({ friendId, name, timeAgo, userPicturePath, userId }) => {
   const isFriend = friends?.find((friend) => friend._id === friendId);
   const isUser = friendId === userId;
 
-  const SERVER_URL = process.env.SERVER_URL;
-
   const patchFriend = async () => {
-    const response = await fetch(`${SERVER_URL}/users/${_id}/${friendId}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      `http://localhost:3001/users/${_id}/${friendId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
   };
@@ -64,7 +65,7 @@ const Friend = ({ friendId, name, timeAgo, userPicturePath, userId }) => {
           </Typography>
         </Box>
       </FlexBetween>
-
+      
       {!isUser && (
         <IconButton
           onClick={() => patchFriend()}

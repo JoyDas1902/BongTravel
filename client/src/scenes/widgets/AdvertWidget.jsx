@@ -8,8 +8,6 @@ const AdvertWidget = () => {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  const SERVER_URL = process.env.SERVER_URL;
-
   return (
     <WidgetWrapper>
       <FlexBetween>
@@ -22,7 +20,7 @@ const AdvertWidget = () => {
         width='100%'
         height='auto'
         alt=''
-        src={`${SERVER_URL}/assets/ad1.jpg`}
+        src='http://localhost:3001/assets/ad1.jpg'
         style={{ borderRadius: '0.75rem', margin: '0.75rem 0' }}
       />
       <FlexBetween>
